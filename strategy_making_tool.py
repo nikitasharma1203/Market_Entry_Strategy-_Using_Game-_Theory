@@ -14,14 +14,26 @@ st.caption("NYC Taxi Data • Product Management • Game Theory")
 # LOAD DATA
 # --------------------------------------------------
 @st.cache_data
+# --------------------------------------------------
+# LOAD DATA
+# --------------------------------------------------
 def load_data():
-    df = pd.read_csv("C:\\Users\\sniks\\OneDrive\\Desktop\\gt\\output_file.csv")
-    df["pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
-    df["hour"] = df["pickup_datetime"].dt.hour
-    return df
-
+    try:
+        # Try local file first
+        df = pd.read_csv("output_file.csv", low_memory=False)
+        st.success("Loaded local CSV file.")
+        return df
+    except FileNotFoundError:
+        st.warning("Local file not found. Loading from Google Drive...")
+        try:
+            url = "https://drive.google.com/uc?id=1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS"
+            df = pd.read_csv(url, low_memory=False)
+            st.success("Loaded dataset from Google Drive.")
+            return df
+        except Exception as e:
+            st.error(f"Failed to load dataset from Google Drive: {e}")
+            return pd.DataFrame()  # return empty df to avoid crash
 df = load_data()
-
 # --------------------------------------------------
 # MARKET REALITY (STATIC)
 # --------------------------------------------------
