@@ -14,21 +14,13 @@ st.caption("NYC Taxi Data • Product Management • Game Theory")
 # LOAD DATA
 # --------------------------------------------------
 @st.cache_data
-def load_data(full=False):
-    try:
-        if full:
-            # Try local full file first
-            return pd.read_csv("output_file.csv", low_memory=False)
-        else:
-            # Use sample dataset
-            return pd.read_csv("sample_output.csv", low_memory=False)
-    except FileNotFoundError:
-        # Fallback to external hosted dataset
-        url = "https://drive.google.com/uc?id=1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS"
-        return pd.read_csv(url, low_memory=False)
+def load_data():
+    # Always load the sample dataset
+    return pd.read_csv("sample_output.csv", low_memory=False)
 
 # Default: load sample for demo
-df = load_data(full=False)
+df = load_data()
+
 
 # --------------------------------------------------
 # MARKET REALITY (STATIC)
