@@ -12,11 +12,14 @@ st.caption("NYC Taxi Data • Product Management • Game Theory")
 
 # --------------------------------------------------
 # LOAD DATA
-# --------------------------------------------------
 @st.cache_data
 def load_data():
-    # Always load the sample dataset
-    return pd.read_csv("sample_output.csv", low_memory=False)
+    df = pd.read_csv("sample_output.csv", low_memory=False)
+    # Convert pickup datetime to pandas datetime
+    df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
+    # Create an 'hour' column
+    df["hour"] = df["tpep_pickup_datetime"].dt.hour
+    return df
 
 # Default: load sample for demo
 df = load_data()
