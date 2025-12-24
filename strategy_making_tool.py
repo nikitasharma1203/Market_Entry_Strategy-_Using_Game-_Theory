@@ -14,11 +14,22 @@ st.caption("NYC Taxi Data • Product Management • Game Theory")
 # LOAD DATA
 # --------------------------------------------------
 @st.cache_data
+
 def load_data():
-    df = pd.read_csv("C:\\Users\\sniks\\OneDrive\\Desktop\\gt\\output_file.csv")
-    df["pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
-    df["hour"] = df["pickup_datetime"].dt.hour
-    return df
+    try:
+        # Try to load the local file first
+        df = pd.read_csv("output_file.csv")
+        print("Loaded local CSV file successfully.")
+        return df
+    except FileNotFoundError:
+        print("Local file not found. Falling back to external source...")
+        # Fallback: load from an external hosted dataset (Google Drive, Kaggle, etc.)
+        # Replace this URL with your actual dataset link
+        url = "https://drive.google.com/file/d/1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS/view?usp=sharing"
+        df = pd.read_csv(url)
+        print("Loaded dataset from external URL.")
+        return df
+
 
 df = load_data()
 
