@@ -14,24 +14,23 @@ st.caption("NYC Taxi Data • Product Management • Game Theory")
 # LOAD DATA
 # --------------------------------------------------
 @st.cache_data
-
+# --------------------------------------------------
+# LOAD DATA
+# --------------------------------------------------
 def load_data():
     try:
-        # Try to load the local file first
-        df = pd.read_csv("output_file.csv")
-        print("Loaded local CSV file successfully.")
+        # Try local file first (works if you've run `git lfs pull` locally)
+        df = pd.read_csv("output_file.csv", low_memory=False)
         return df
     except FileNotFoundError:
-        print("Local file not found. Falling back to external source...")
-        # Fallback: load from an external hosted dataset (Google Drive, Kaggle, etc.)
-        # Replace this URL with your actual dataset link
-        url = "https://drive.google.com/file/d/1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS/view?usp=sharing"
-        df = pd.read_csv(url)
-        print("Loaded dataset from external URL.")
+        # Fallback to external hosted dataset (Google Drive direct download link)
+        url = "https://drive.google.com/uc?id=1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS"
+        df = pd.read_csv(url, low_memory=False)
         return df
 
-
 df = load_data()
+
+
 
 # --------------------------------------------------
 # MARKET REALITY (STATIC)
