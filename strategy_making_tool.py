@@ -14,26 +14,22 @@ st.caption("NYC Taxi Data • Product Management • Game Theory")
 # LOAD DATA
 # --------------------------------------------------
 @st.cache_data
-# --------------------------------------------------
-# LOAD DATA
-# --------------------------------------------------
-def load_data():
+def load_data(full=False):
     try:
-        # Try local file first
-        df = pd.read_csv("output_file.csv", low_memory=False)
-        st.success("Loaded local CSV file.")
-        return df
+        if full:
+            # Try local full file first
+            return pd.read_csv("output_file.csv", low_memory=False)
+        else:
+            # Use sample dataset
+            return pd.read_csv("sample_output.csv", low_memory=False)
     except FileNotFoundError:
-        st.warning("Local file not found. Loading from Google Drive...")
-        try:
-            url = "https://drive.google.com/uc?id=1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS"
-            df = pd.read_csv(url, low_memory=False)
-            st.success("Loaded dataset from Google Drive.")
-            return df
-        except Exception as e:
-            st.error(f"Failed to load dataset from Google Drive: {e}")
-            return pd.DataFrame()  # return empty df to avoid crash
-df = load_data()
+        # Fallback to external hosted dataset
+        url = "https://drive.google.com/uc?id=1Ni2A8i8VI9IsCzLGoXuI-YtAYJAe7qfS"
+        return pd.read_csv(url, low_memory=False)
+
+# Default: load sample for demo
+df = load_data(full=False)
+
 # --------------------------------------------------
 # MARKET REALITY (STATIC)
 # --------------------------------------------------
