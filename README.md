@@ -1,7 +1,7 @@
 # Market Entry Strategy Using Game Theory & Product Analytics
 
 ## A Data-Driven Decision Framework for Competitive Platform Launch
-
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)] (https://marketentrystrategy-usinggame-theory-y9u8mmva6yll8kc6oswkig.streamlit.app/)
 ### Project Overview
 
 This project analyzes a real-world NYC Taxi dataset to design a market entry strategy for a second ride-hailing platform (Platform B) entering a market already dominated by an incumbent (Platform A).
